@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Library Manager</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}" type="text/css" />
+</head>
+
+<body>
+  
+  <div class="top_navigation_bar">
+    <a id="current_navigation_button" href="/">Homepage</a>
+    <a href="login">Login</a>
+  </div>
+
+  <div class="main_box">
+    <form action="/submit_ticket" method="POST">
+      <label for="email">Email</label><br>
+      <input type="text" name="email" id="email" required><br>
+      <label for="ticket_text">Describe your problem:</label><br>
+      <textarea type="text" name="ticket_text" id="ticket_text" cols="40" rows="5"></textarea><br>
+      <input type="submit">
+    </form>
+  </div>
+
+
+
+</body>
+  
+</html>

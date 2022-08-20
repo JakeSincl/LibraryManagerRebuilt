@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap');
+
+* {
+  font-family: 'Kdam Thmor Pro', sans-serif;
+}
+
+body {
+  font-family: 'Kdam Thmor Pro', sans-serif;
+}
+
+h1 {
+  font-family: 'Kdam Thmor Pro', sans-serif;
+}
+
+.loginButton {
+  background-color: white;
+  border: 5px solid gray;
+  border-radius: 10%;
+  text-decoration: none;
+}
+.loginButton:hover {
+  border-color: gray;
+  background-color: lightgray;
+  color: white;
+}
+
+#login {
+  margin-right: 5px;
+}
+
+#signUp {
+  margin-left: 5px;
+}
+

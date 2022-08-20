@@ -1,0 +1,61 @@
+{% extends "base.html" %} {% block title %}Sign Up{% endblock %} {% block
+content %}
+<form method="POST">
+  <h3 align="center">Sign Up</h3>
+  <div class="form-group">
+    <label for="email">Email Address</label>
+    <input
+      type="email"
+      class="form-control"
+      id="email"
+      name="email"
+      placeholder="Enter email"
+    />
+  </div>
+  <div class="form-group">
+    <label for="firstName">First Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="firstName"
+      name="firstName"
+      placeholder="Enter first name"
+    />
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password1"
+      name="password1"
+      placeholder="Enter password"
+      />
+  </div>
+  <div class="form-group">
+    <label for="password">Password (Confirm)</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password2"
+      name="password2"
+      placeholder="Reenter password"
+    />
+  </div>
+  <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#adminDiv" aria-expanded="false" aria-controls="adminDiv">
+    Create Admin account
+  </button>
+  <div class="form-group collapse" id="adminDiv">
+    <label for="admin">Enter the admin code.</label>
+    <input
+      type="password"
+      class="form-control"
+      id="admin"
+      name="admin"
+      placeholder="Enter code"
+    />
+  </div>
+  <br>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

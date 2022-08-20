@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome{% endblock %}
+{% block content %}
+<h2 class="text-center" id="welcomeText">Welcome to</h2>
+<h1 class="text-center">Book Look</h1>
+<h3 class="text-center">The book storage management system</h3>
+{% if user.is_authenticated %}
+  <h5 class="text-center">Head to your dashboard to get started.</h5>
+  <div class="d-flex justify-content-center">
+    <a class="nav-item nav-link loginButton" id="home" href="/home">Dashboard</a>
+  </div>
+{% else %}
+  <h5 class="text-center">Please create an account or sign in to continue.</h5>
+  <div class="d-flex justify-content-center">
+    <a class="nav-item nav-link loginButton" id="login" href="/login">Login</a>
+    <a class="nav-item nav-link loginButton" id="signUp" href="/sign-up">Sign Up</a>
+  </div>
+{% endif %}
+{% endblock %}
