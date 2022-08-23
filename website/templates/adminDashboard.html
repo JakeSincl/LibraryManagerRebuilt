@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %} - Admin Dashboard{% endblock %}
+
+{% block content %}
+
+<div>
+  <form method="POST" class="card p-3 bg-light">
+    <h3 align="center">New book form</h3>
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input
+        type="title"
+        class="form-control"
+        id="title"
+        name="title"
+        placeholder="Enter the book's title"
+      />
+    </div>
+    <div class="form-group">
+      <label for="author">Author</label>
+      <input
+        type="author"
+        class="form-control"
+        id="author"
+        name="author"
+        placeholder="Enter the author's name"
+      />
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea
+        class="form-control"
+        id="description"
+        name="description"
+        rows="3"
+        placeholder="Enter a description of the book"
+        ></textarea>
+    </div>
+    <div class="form-group">
+      <label for="publish_year">Year Published</label>
+      <input
+        type="publish_year"
+        class="form-control"
+        id="publish_year"
+        name="publish_year"
+        placeholder="Enter the year in which the book was published"
+      />
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+<div>
+<input type="text" class="live-search-box" placeholder="search here" />
+  
+<ul class="live-search-list" type="None">
+<li>C++</li>
+<li>c</li>
+<li>Python</li>
+<li>Java</li>
+<li>Javascript</li>
+<li>Golang</li>
+<li>R</li>
+<li>Ruby</li>
+<li>Scala</li>
+<li>C#</li>
+<li>PHP</li>
+<li>Fortran</li>
+<li>Dart</li>
+</ul>
+  
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+  
+<script type="text/javascript">
+    jQuery(document).ready(function($){
+  
+$('.live-search-list li').each(function(){
+$(this).attr('data-search-term', $(this).text().toLowerCase());
+});
+  
+$('.live-search-box').on('keyup', function(){
+  
+var searchTerm = $(this).val().toLowerCase();
+    $('.live-search-list li').each(function(){
+        if ($(this).filter('[data-search-term *= ' + searchTerm + ']').length > 0 || searchTerm.length < 1) {
+            $(this).show();
+        } else {
+            $(this).hide();
+        }
+    });
+});
+  
+});
+</script>
+</div>
+
+{% endblock %}

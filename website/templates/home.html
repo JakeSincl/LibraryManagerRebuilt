@@ -1,36 +1,96 @@
 {% extends "base.html" %}
 
-{% block title %}Home{% endblock %}
+{% block title %} - Dashboard{% endblock %}
 
 {% block content %}
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
+<form method="POST">
+{% if user.books %}
+  <h2 align="center">Your books</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Title</th>
+        <th scope="col">Author</th>
+        <th scope="col">Description</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in user.books %}
+      <tr>
+        <td>
+          <input id="remove_book" name="remove_book" type="hidden" value="{{ book.id }}">
+          <button class="btn btn-primary" type="submit" name="action" value="remove_book">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/>
+            </svg>
+          </button>
+        </td>
+        <td>{{ book.title }}</td>
+        <td>{{ book.author }}</td>
+        <td>{{ book.description }}</td>
+        <td>
+          <input id="book_page" name="book_page" type="hidden" value="{{ book.id }}">
+          <button class="btn btn-primary" type="submit" name="action" value="book_page">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/></path>
+            <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/></path>
+            </svg>
+          </button>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% else %}
+  <h2 align="center">You currently have no books on loan.</h2>
+{% endif %}
+
+<br>
+<hr>
+<br>
+
+  <h2 align="center">Available books</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Title</th>
+        <th scope="col">Author</th>
+        <th scope="col">Description</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in allBooks %}
+        {% if book.loaned_to == 0 %}
+        <tr>
+          <td>
+            <input id="add_book" name="add_book" type="hidden" value="{{ book.id }}">
+            <button class="btn btn-primary" type="submit" name="action" value="add_book">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+              </svg>
+            </button>
+          </td>
+          <td>{{ book.title }}</td>
+          <td>{{ book.author }}</td>
+          <td>{{ book.description }}</td>
+          <td>
+            <input id="book_page" name="book_page" type="hidden" value="{{ book.id }}">
+            <button class="btn btn-primary" type="submit" name="action" value="book_page">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/></path>
+              <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/></path>
+              </svg>
+            </button>
+          </td>
+        </tr>
+        {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+</form>
 {% endblock %}

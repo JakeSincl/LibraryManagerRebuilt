@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}- {{ book.title }}{% endblock %}
+
+
+{% block content %}
+
+<h1 align="center" style="padding-top:5%; padding-bottom:2%;">{{ book.title }}</h1>
+
+<ul class="list-group">
+  <li align="center" class="list-group-item">Author: {{ book.author }}</li>
+  <li align="center" class="list-group-item">Description: {{ book.description }}</li>
+  <li align="center" class="list-group-item">Year Published: {{ book.publish_year }}</li>
+</ul>
+
+{% endblock %}

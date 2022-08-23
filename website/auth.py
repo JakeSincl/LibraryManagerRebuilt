@@ -1,13 +1,8 @@
-from unicodedata import category
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from .models import User
+from .models import User, Book
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
-
-with open("adminHash.txt", "w") as f:
-  f.write(generate_password_hash("admin", method="sha256"))
-
 
 auth = Blueprint("auth", __name__)
 
@@ -28,7 +23,7 @@ def login():
         else:
             flash("Email does not exist.", category="error")
             
-    return render_template("login.html", user=current_user)
+    return render_template("login.html")
 
 @auth.route("/logout")
 @login_required
@@ -46,25 +41,35 @@ def sign_up():
         userCode = request.form.get("admin")
 
         user = User.query.filter_by(email=email).first()
-      
+        check = True
+        access_level = 0
+        if userCode:
+          if not check_password_hash((open("adminhash.txt", "r")).readlines()[0], userCode):
+            flash("The admin code you entered was incorrect.", category="error")
+            check = False
+          else:
+            access_level = 1
         if user:
             flash("Email already being used by an account.", category="error")
+            check = False
         elif len(email) < 4:
             flash("Email must be greater than 3 characters.", category="error")
+            check = False
         elif len(first_name) < 2:
             flash("First name must be greater than 1 character.", category="error")
+            check = False
         elif password1 != password2:
             flash("Passwords must match.", category="error")
+            check = False
         elif len(password1) < 7:
             flash("Password must be at least 7 characters.", category="error")
-        elif not check_password_hash((open("adminHash.txt", "r")).readlines()[0], userCode):
-          flash("The admin code you entered was incorrect.", category="error")
-        else:
-            new_user = User(email=email, first_name=first_name, password=generate_password_hash(password1, method="sha256"))
+            check = False
+        if check:
+            new_user = User(email=email, first_name=first_name, password=generate_password_hash(password1, method="sha256"), access_level=access_level)
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
             flash("Account created!", category="success")
             return redirect(url_for("views.home"))
 
-    return render_template("signup.html", user=current_user)
+    return render_template("signup.html")

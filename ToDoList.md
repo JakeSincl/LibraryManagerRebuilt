@@ -14,8 +14,12 @@
 
 
 ## Create New
+* Add admin panel for adding/removing books.
 * Continue working on dasboard
 * Different levels of account functionality
+* Add "book page" that generates a page for each book to views its info.
+* Add account page
+
 
 ## Resources
 * https://www.youtube.com/watch?v=dam0GPOAvVI
