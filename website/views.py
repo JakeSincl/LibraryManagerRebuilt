@@ -15,8 +15,10 @@ def welcome():
 @login_required
 def home():
   if request.method == "POST":
-    if request.form['action'] == 'book_page':
-      book = Book.query.filter_by(id=request.form.get("book_page")).first()
+    if request.form['action']:
+      book_id = request.form.get("action")
+      book = Book.query.filter_by(id=book_id).first()
+      print(book.id)
       return render_template("book.html", book=book)
     elif request.form['action'] == 'add_book':
       book = Book.query.filter_by(id=request.form.get("add_book")).first()
@@ -54,4 +56,4 @@ def adminDashboard():
       flash("Book added!", category="success")
       return redirect(url_for("views.adminDashboard"))
   else:
-    return render_template("adminDashboard.html")
+    return render_template("adminDashboard.html", allBooks=Book.query.all())

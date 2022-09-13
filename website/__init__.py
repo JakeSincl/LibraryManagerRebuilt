@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager, current_user
 from werkzeug.security import generate_password_hash
+#from flask_socketio import SocketIO, emit
 
 db = SQLAlchemy(session_options={"autoflush": False})
 DB_NAME = "database.db"
@@ -12,6 +13,7 @@ def create_app():
   app.config['SECRET_KEY'] = "THISISVERYSECRET"
   app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_NAME}"
   db.init_app(app)
+  #socket = SocketIO(app)
 
   from .views import views
   from .auth import auth

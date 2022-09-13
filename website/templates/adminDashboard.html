@@ -51,49 +51,54 @@
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 </div>
-
+<br>
+<hr><!-- ------------------------------------------------------------------ --->
+<br>
 <div>
-<input type="text" class="live-search-box" placeholder="search here" />
-  
-<ul class="live-search-list" type="None">
-<li>C++</li>
-<li>c</li>
-<li>Python</li>
-<li>Java</li>
-<li>Javascript</li>
-<li>Golang</li>
-<li>R</li>
-<li>Ruby</li>
-<li>Scala</li>
-<li>C#</li>
-<li>PHP</li>
-<li>Fortran</li>
-<li>Dart</li>
-</ul>
-  
-<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-  
-<script type="text/javascript">
-    jQuery(document).ready(function($){
-  
-$('.live-search-list li').each(function(){
-$(this).attr('data-search-term', $(this).text().toLowerCase());
-});
-  
-$('.live-search-box').on('keyup', function(){
-  
-var searchTerm = $(this).val().toLowerCase();
+  <form method="POST" class="card p-3 bg-light">
+    <h3 align="center">Book Removal</h3>
+    <label for="titleSearch">Title</label>
+    <input name ="titleSearch" type="text" class="live-search-box" placeholder="Enter the title" />
+    <br>
+    <div class="card p-3 bg-light">
+      <label for="titleList">Books that are available to remove:</label>
+      <ul name="titleList" class="live-search-list" type="None">
+        {% for book in allBooks %}
+          {% if book.loaned_to == 0 %}
+            <li>{{ book.title }}</li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+      
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+      
+    <script type="text/javascript">
+        jQuery(document).ready(function($){
+      
     $('.live-search-list li').each(function(){
-        if ($(this).filter('[data-search-term *= ' + searchTerm + ']').length > 0 || searchTerm.length < 1) {
-            $(this).show();
-        } else {
-            $(this).hide();
-        }
+    $(this).attr('data-search-term', $(this).text().toLowerCase());
     });
-});
-  
-});
-</script>
+      
+    $('.live-search-box').on('keyup', function(){
+      
+    var searchTerm = $(this).val().toLowerCase();
+        $('.live-search-list li').each(function(){
+            if ($(this).filter('[data-search-term *= ' + searchTerm + ']').length > 0 || searchTerm.length < 1) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+      
+    });
+    </script>
+    </div>
+      <br>
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <br>
+  </form>
 </div>
 
 {% endblock %}
