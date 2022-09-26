@@ -31,3 +31,18 @@ h1 {
 #signUp {
   margin-left: 5px;
 }
+
+#account_name {
+  margin: 40px;
+}
+
+].table {
+  border-radius: 5px;
+  width: 50%;
+  margin: 0px auto;
+  float: none;
+}
+
+.deleteable_books {
+  padding: 5px;
+}

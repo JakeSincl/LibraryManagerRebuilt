@@ -1,7 +1,6 @@
 # To Do List
 
 ## Fix
-* Complete system for removing books
 
 ## Create New
 * Add account page
